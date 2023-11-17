@@ -1,11 +1,17 @@
 package hexlet.code;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Differ {
-    public static String generate(String filePath1, String filePath2) {
+    public static String generate(File file1, File file2) {
         return "";
+    }
+
+    public static Map<String, Object> jsonToMap(File file) {
+        Map<String, Object> map = new HashMap<>();
+        return map;
     }
 
     public static String diff(Map<String, Object> map1, Map<String, Object> map2) {
