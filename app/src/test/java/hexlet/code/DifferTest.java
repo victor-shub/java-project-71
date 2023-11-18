@@ -1,13 +1,15 @@
 package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
 public class DifferTest {
     @Test
-    public void testDiff() {
+    public void testDiffer() throws JsonProcessingException {
         Map<String, Object> map1 = Map.of("host", "hexlet.io",
                 "timeout", 50,
                 "proxy", "123.234.53.22",
@@ -15,6 +17,13 @@ public class DifferTest {
         Map<String, Object> map2 = Map.of("timeout", 20,
                 "verbose", true,
                 "host", "hexlet.io");
+        var file1 = "{\n" +
+                "  \"host\": \"hexlet.io\",\n" +
+                "  \"timeout\": 50,\n" +
+                "  \"proxy\": \"123.234.53.22\",\n" +
+                "  \"follow\": false\n" +
+                "}";
+
         var actual = Differ.diff(map1, map2);
         var expected = "{\n" +
                 "  - follow: false\n" +
@@ -25,5 +34,8 @@ public class DifferTest {
                 "  + verbose: true\n" +
                 "}";
         assertEquals(expected, actual);
+
+        var actualMap = Differ.jsonToMap(file1);
+        assertEquals(map1, actualMap);
     }
 }
