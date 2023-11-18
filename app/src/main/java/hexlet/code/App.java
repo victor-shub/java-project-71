@@ -9,7 +9,7 @@ import java.io.File;
 
 @Command(name = "genDiff", mixinStandardHelpOptions = true, version = "version",
         description = "Compares two configuration files and shows a difference.")
-class GenDiff implements Callable<Integer> {
+class App implements Callable<Integer> {
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
     private File file1;
@@ -29,13 +29,12 @@ class GenDiff implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        System.out.println(Differ.generate(file1, file2));
         return null;
     }
-}
 
-public class App {
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new GenDiff()).execute(args);
+        int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
 }
