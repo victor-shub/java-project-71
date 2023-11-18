@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
@@ -17,22 +17,22 @@ public class DifferTest {
         Map<String, Object> map2 = Map.of("timeout", 20,
                 "verbose", true,
                 "host", "hexlet.io");
-        var file1 = "{\n" +
-                "  \"host\": \"hexlet.io\",\n" +
-                "  \"timeout\": 50,\n" +
-                "  \"proxy\": \"123.234.53.22\",\n" +
-                "  \"follow\": false\n" +
-                "}";
+        var file1 = "{\n"
+                + "  \"host\": \"hexlet.io\",\n"
+                + "  \"timeout\": 50,\n"
+                + "  \"proxy\": \"123.234.53.22\",\n"
+                + "  \"follow\": false\n"
+                + "}";
 
         var actual = Differ.diff(map1, map2);
-        var expected = "{\n" +
-                "  - follow: false\n" +
-                "    host: hexlet.io\n" +
-                "  - proxy: 123.234.53.22\n" +
-                "  - timeout: 50\n" +
-                "  + timeout: 20\n" +
-                "  + verbose: true\n" +
-                "}";
+        var expected = "{\n"
+                + "  - follow: false\n"
+                + "    host: hexlet.io\n"
+                + "  - proxy: 123.234.53.22\n"
+                + "  - timeout: 50\n"
+                + "  + timeout: 20\n"
+                + "  + verbose: true\n"
+                + "}";
         assertEquals(expected, actual);
 
         var actualMap = Differ.jsonToMap(file1);

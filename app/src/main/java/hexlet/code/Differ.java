@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Differ {
@@ -23,7 +25,7 @@ public class Differ {
 
     public static Map<String, Object> jsonToMap(String stringFile) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        var map = objectMapper.readValue(stringFile, new TypeReference<Map<String,Object>>(){});
+        var map = objectMapper.readValue(stringFile, new TypeReference<Map<String, Object>>() { });
         return map;
     }
 
