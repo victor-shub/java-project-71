@@ -1,16 +1,29 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Differ {
-    public static String generate(File file1, File file2) {
-        return "";
+    public static String generate(File file1, File file2) throws Exception {
+        if (!file1.isFile() || !file2.isFile()) {
+            throw new Exception("Wrong file name(s)!");
+        }
+        var stringFile1 = Files.readString(file1.toPath());
+        var stringFile2 = Files.readString(file2.toPath());
+        var map1 = jsonToMap(stringFile1);
+        var map2 = jsonToMap(stringFile2);
+        return diff(map1, map2);
     }
 
-    public static Map<String, Object> jsonToMap(File file) {
-        Map<String, Object> map = new HashMap<>();
+    public static Map<String, Object> jsonToMap(String stringFile) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        var map = objectMapper.readValue(stringFile, new TypeReference<Map<String,Object>>(){});
         return map;
     }
 
